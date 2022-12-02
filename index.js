@@ -29,7 +29,7 @@ app.listen(PORT, ()=>{
     console.log(`Server Listening to Port ${PORT}`)
 });
 
-// app.use(express.static(path.resolve(__dirname,'../client/build')));
+app.use(express.static(path.resolve(__dirname,'../client/build')));
 
 router.get('/status',(request,response) => {
     //code to perform particular action.
