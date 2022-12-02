@@ -1,4 +1,7 @@
 import axios from 'axios'
+const BASE_URL = process.env.REACT_APP_BASEURL
+
+
 
 export const startBot = async()=>{
 
@@ -8,7 +11,7 @@ export const startBot = async()=>{
       
       var config = {
         method: 'post',
-        url: 'http://localhost:3001/start',
+        url: `${BASE_URL}/start`,
         headers: { 
           'Content-Type': 'application/json'
         },
@@ -31,7 +34,7 @@ export const stopBot = async()=>{
       
       var config = {
         method: 'delete',
-        url: 'http://localhost:3001/start',
+        url: `${BASE_URL}/start`,
         headers: { 
           'Content-Type': 'application/json'
         }
@@ -48,12 +51,11 @@ export const stopBot = async()=>{
 }
 
 export const getStatus = async()=>{
-
-    
+ 
       
     var config = {
       method: 'get',
-      url: 'http://localhost:3001/status',
+      url: `${BASE_URL}/status`,
       headers: { 
         'Content-Type': 'application/json'
       }
