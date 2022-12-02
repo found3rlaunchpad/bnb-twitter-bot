@@ -7,7 +7,7 @@ const {getBnbPrice} = require('./server/CoinGecko')
 const { createImage } = require('./server/ImageCreator')
 const { tweet } = require('./server/tweet')
 const PORT = process.env.port || 3001 ;
-const CronJob = require("cron").CronJob;
+// const CronJob = require("cron").CronJob;
 var prevBNBPrice = 0
 var prevUpdatedDate = new Date()
 
@@ -29,7 +29,7 @@ app.listen(PORT, ()=>{
     console.log(`Server Listening to Port ${PORT}`)
 });
 
-app.use(express.static(path.resolve(__dirname,'../client/build')));
+// app.use(express.static(path.resolve(__dirname,'../client/build')));
 
 router.get('/status',(request,response) => {
     //code to perform particular action.
@@ -46,7 +46,7 @@ router.get('/status',(request,response) => {
         console.log(JSON.parse(JSON.stringify(request.body)));
         let config = JSON.parse(JSON.stringify(request.body))
         
-            openingCandleTweet.start()
+            // openingCandleTweet.start()
 
             startBot("initial")
 
@@ -114,14 +114,14 @@ const startBot = async (runType)=>{
 
 
 
-const openingCandleTweet = new CronJob("0 0 * * *", async () => {
-    startBot("opening");
-    console.log("Runing Opening Price Check")
-  },
-  null,
-  false, //Start Now...?
-  'UTC' // TimeZone
-  );
+// const openingCandleTweet = new CronJob("0 0 * * *", async () => {
+//     startBot("opening");
+//     console.log("Runing Opening Price Check")
+//   },
+//   null,
+//   false, //Start Now...?
+//   'UTC' // TimeZone
+//   );
 
 
 
