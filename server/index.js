@@ -32,10 +32,12 @@ const run = async (runType)=>{
             await createImage(price,side)
             await tweet(tweet)
 
-        }
-
         prevBNBPrice = price
         prevUpdatedDate = new Date()
+
+        }
+
+        
 
     }else if(runType==='opening'){
         let currentDate = new Date()
