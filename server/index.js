@@ -1,12 +1,73 @@
+const express = require('express')
+const cors = require("cors");
+const path = require('path');
+const router = express.Router();
+const bodyParser = require("body-parser");
 const {getBnbPrice} = require('./CoinGecko')
 const { createImage } = require('./ImageCreator')
 const { tweet } = require('./tweet')
+const PORT = process.env.port || 3001 ;
 const CronJob = require("cron").CronJob;
 var prevBNBPrice = 0
 var prevUpdatedDate = new Date()
 
+
+var isBotRunning = false
+var intervalId = 0
+
+const app = express();
+
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+
+app.use(cors());
+app.use("/", router);
+
+
+
+app.listen(PORT, ()=>{
+    console.log(`Server Listening to Port ${PORT}`)
+});
+
+app.use(express.static(path.resolve(__dirname,'../client/build')));
+
+router.get('/status',(request,response) => {
+    //code to perform particular action.
+    //To access POST variable use req.body()methods.
+    
+    response.json({data:{isbotRunning : isBotRunning}});
+    });
+
+    router.post('/start',(request,response) => {
+        //code to perform particular action.
+        //To access POST variable use req.body()methods.
+        
+        console.log("Start Bot")
+        console.log(JSON.parse(JSON.stringify(request.body)));
+        let config = JSON.parse(JSON.stringify(request.body))
+        
+            openingCandleTweet.start()
+
+            startBot("initial")
+
+            intervalId = setInterval(() => {
+                startBot("10perc")
+            }, 1*60*60*1000);
+
+        isBotRunning =true    
+        response.json({data:'success'});
+        });
+    router.delete('/start',(request,response) => {
+        //code to perform particular action.
+        openingCandleTweet.stop()
+        clearInterval(intervalId)
+        isBotRunning =false
+        console.log("Stop Bot")
+        response.json({data:'success'});
+        });
+
 // runType : initial , 10perc, opening
-const run = async (runType)=>{
+const startBot = async (runType)=>{
     let response = await getBnbPrice()
     let price = response.binancecoin.usd
     console.log(price)
@@ -54,7 +115,7 @@ const run = async (runType)=>{
 
 
 const openingCandleTweet = new CronJob("0 0 * * *", async () => {
-    run("opening");
+    startBot("opening");
     console.log("Runing Opening Price Check")
   },
   null,
@@ -62,12 +123,7 @@ const openingCandleTweet = new CronJob("0 0 * * *", async () => {
   'UTC' // TimeZone
   );
 
-openingCandleTweet.start()
 
-run("initial")
-setInterval(() => {
-    run("10perc")
-}, 1*60*60*1000);
 
 
 
