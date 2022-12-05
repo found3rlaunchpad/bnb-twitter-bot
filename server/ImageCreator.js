@@ -1,10 +1,10 @@
 const fs = require('fs')
 const { loadImage, createCanvas } = require('canvas')
 
-
+// const createImage = async(price,side)=>{
 exports.createImage = async(price,side)=>{
-    const width = 1600
-    const height = 418
+    const width = 462
+    const height = 226
     const canvas = createCanvas(width, height)
     const context = canvas.getContext('2d')
     // context.fillStyle = '#2b03a3'
@@ -21,20 +21,22 @@ exports.createImage = async(price,side)=>{
     // context.fillStyle = '#ffffff'
     // context.font = 'bold 32pt Menlo'
     // context.fillText('positronx.io', 755, 600)
-    loadImage('./images/bannerImage.png').then((data) => {
-      context.drawImage(data, 0, 0, 1600, 418)
+    loadImage('./images/bannerImage2.png').then((data) => {
+      context.drawImage(data, 0, 0, 462, 226)
       if(side==='up'){
-        context.fillStyle = '#065712'
+        context.fillStyle = '#D92B2B'
       }else if(side==='down'){
-        context.fillStyle = '#660507'
+        context.fillStyle = '#7CB351'
       }else {
-        context.fillStyle = '#000000'
+        context.fillStyle = '#3C3C22'
       }
       
-      context.font = 'bold 72pt Sans'
-      context.fillText(`$ ${price}`, 600,250,400)
+      context.font = 'bold 28pt Sans'
+      context.fillText(`$${price}`, 150,65,170)
       const imgBuffer = canvas.toBuffer('image/png')
       fs.writeFileSync('./resources/drawnImage.png', imgBuffer)
     })
 
 }
+
+// createImage(292.23,'down')
