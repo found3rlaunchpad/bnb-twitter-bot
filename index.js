@@ -80,15 +80,15 @@ const startBot = async (runType)=>{
     } else if(runType==='10perc'){
         let priceDiff = price - prevBNBPrice
         let perc = Math.abs(priceDiff/prevBNBPrice)*100
-        if(perc>=10){
+        if(perc>=1){
         let side = "neutral"
         let tweet = "BNB Price"
         if(priceDiff>0){
             side='up'
-            tweet = `BNB Up 10% since ${prevUpdatedDate}`
+            tweet = `BNB Up 1% since ${prevUpdatedDate}`
         }else if(priceDiff<0){
             side = 'down'
-            tweet = `BNB Down 10% since ${prevUpdatedDate}`
+            tweet = `BNB Down 1% since ${prevUpdatedDate}`
         }
             await createImage(price,side)
             await tweet(tweet)
