@@ -24,9 +24,9 @@ exports.createImage = async(price,side)=>{
     loadImage('./images/bannerImage2.png').then((data) => {
       context.drawImage(data, 0, 0, 462, 226)
       if(side==='up'){
-        context.fillStyle = '#D92B2B'
-      }else if(side==='down'){
         context.fillStyle = '#7CB351'
+      }else if(side==='down'){
+        context.fillStyle = '#D92B2B'
       }else {
         context.fillStyle = '#3C3C22'
       }
