@@ -32,7 +32,7 @@ exports.createImage = async(price,side)=>{
       }
       
       context.font = 'bold 28pt Sans'
-      context.fillText(`$${price}`, 150,65,170)
+      context.fillText(`$${price.toFixed(2)}`, 150,65,170)
       const imgBuffer = canvas.toBuffer('image/png')
       fs.writeFileSync('./resources/drawnImage.png', imgBuffer)
     })
